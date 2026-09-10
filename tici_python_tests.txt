@@ -1,0 +1,36 @@
+tici@tici-MS-7A38:~/python server$ 
+curl http://localhost:9292/tasks
+[]
+
+tici@tici-MS-7A38:~/python server$ 
+curl -X POST http://localhost:9292/tasks
+-H "Content-Type: application/json"   
+-d '{"title": "Estudiar HTTP", "done": false}'
+{"title": "Estudiar HTTP", "done": false, "id": 1}
+
+tici@tici-MS-7A38:~/python server$ 
+curl http://localhost:9292/tasks/1
+{"title": "Estudiar HTTP", "done": false, "id": 1}
+
+tici@tici-MS-7A38:~/python server$
+curl -X PATCH http://localhost:9292/tasks/1 \
+  -H "Content-Type: application/json" \
+  -d '{"done": true}'
+{"title": "Estudiar HTTP", "done": true, "id": 1}
+
+tici@tici-MS-7A38:~/python server$
+curl http://localhost:9292/tasks/1
+{"title": "Estudiar HTTP", "done": true, "id": 1}
+
+tici@tici-MS-7A38:~/python server$ 
+curl -X DELETE http://localhost:9292/tasks/1
+{"mensaje": "Tarea eliminada"}
+
+tici@tici-MS-7A38:~/python server$ 
+curl -i http://localhost:9292/tasks/999
+HTTP/1.0 404 Not Found
+Date: Wed, 09 Sep 2026 23:43:17 GMT
+Server: WSGIServer/0.2 CPython/3.14.4
+Content-type: application/json
+Content-Length: 35
+{"error": "Tarea no encontrada"}
